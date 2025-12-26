@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lesson/W11/ui/groceries/filter_grocery.dart';
+import 'package:flutter_lesson/w4_list_pass_function/EXERCISE-1/ex_1_start.dart';
 import '../../data/mock_grocery_repository.dart';
 import '../../models/grocery.dart';
+import '../groceries/grocery_filter.dart';
 import 'grocery_form.dart';
 
 class GroceryList extends StatefulWidget {
@@ -11,7 +14,6 @@ class GroceryList extends StatefulWidget {
 }
 
 class _GroceryListState extends State<GroceryList> {
-
   void onCreate() async {
     // Navigate to the form screen using the Navigator push
     Grocery? newGrocery = await Navigator.push<Grocery>(
@@ -44,6 +46,29 @@ class _GroceryListState extends State<GroceryList> {
         actions: [IconButton(onPressed: onCreate, icon: const Icon(Icons.add))],
       ),
       body: content,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 1,
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const GroceryList()),
+            );
+          } else if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const FilterGrocery()),
+            );
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.local_grocery_store),
+            label: 'Groceries',
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+        ],
+      ),
     );
   }
 }
